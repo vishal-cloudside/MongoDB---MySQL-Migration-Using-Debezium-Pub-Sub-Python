@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+ name: debezium-gke
+ namespace: debezium
+ labels:
+ name: debezium
+spec:
+ replicas: 1
+ serviceName: debezium
+ selector:
+ matchLabels:
+ name: debezium
+ template:
+ metadata:
+ labels:
+ name: debezium
+ version: v1
+ spec:
+ serviceAccountName: <Account_name>
+ containers:
+ -- name: debezium
+ image: image_name
+ securityContext:
+ runAsNonRoot: true 
+ volumeMounts:
+ -- name: debezium-config-volume
+ mountPath: /debezium/conf
+ -- name: debezium-data-volume
+ mountPath: /debezium/data
+ volumes:
+ -- name: debezium-config-volume
+ configMap:
+ name: debezium
+ volumeClaimTemplates:
+ -- metadata:
+ name: debezium-data-volume
+ spec:
+ accessModes: [ "ReadWriteOnce" ]
+ resources:
+ requests:
+ storage: 10Gi
