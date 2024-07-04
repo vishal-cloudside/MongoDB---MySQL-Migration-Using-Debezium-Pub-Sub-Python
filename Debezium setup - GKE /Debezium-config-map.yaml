@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: debezium
+ labels:
+ app: debezium
+ namespace: debezium
+data:
+ application.properties: |-
+ debezium.sink.type=pubsub
+ debezium.sink.pubsub.project.id= < project-id >
+ debezium.sink.pubsub.ordering.enabled=true 
+ debezium.sink.pubsub.batch.delay.threshold.ms=100
+ debezium.sink.pubsub.batch.element.count.threshold=100     
+ debezium.source.connector.class=io.debezium.connector.mongodb.MongoDbConnector
+ debezium.source.mongodb.ssl.enabled=true
+ debezium.source.snapshot.mode=initial
+ debezium.source.poll.interval.ms=1000
+ debezium.source.errors.max.retries=3
+ debezium.source.tasks.max=100
+ debezium.source.mongodb.connection.string= < MongoDB Atlas connection string (Ex:mongodb+srv://username:password@clustername/db_name) >
+ debezium.source.mongodb.hosts=< replica_name/sharded_cluster_names >
+ debezium.source.tombstones.on.delete=true
+ debezium.source.capture.mode=change_streams_update_full_with_pre_image
+ debezium.source.mongodb.user= user_name
+ debezium.source.mongodb.password= password
+ debezium.source.database.include.list= db_name
+ debezium.source.topic.prefix=mongostream
+ debezium.format.key=json
+ debezium.format.value=json
+ debezium.format.value.schemas.enable=false
+ quarkus.log.console.json=true
+ quarkus.log.file.enable=false
+ quarkus.log.level=INFO
+ debezium.source.offset.storage.file.filename=/tmp/offsets.dat
