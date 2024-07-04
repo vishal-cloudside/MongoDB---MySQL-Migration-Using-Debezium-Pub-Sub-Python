@@ -17,7 +17,7 @@ spec:
  name: debezium
  version: v1
  spec:
- serviceAccountName: <Account_name>
+ serviceAccountName: deb
  containers:
  -- name: debezium
  image: image_name
