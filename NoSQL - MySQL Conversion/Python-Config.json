@@ -1,0 +1,58 @@
+{
+    "gcs_bucket_name": "utils",
+    "data_mapping": [
+        {
+            "subscription_id": "mongostream.stream.test-sub",
+            "source_collection_name": "streamtest",
+            "sub_tables": [
+                {
+                    "sub_table_name": "stream_test",
+                    "fields": [
+                        "_id",
+                        "place",
+                        "product_name",
+                        "quantity",
+                        "created_at",
+                        "updated_at"
+                    ],
+                    "mapping": {
+                        "created_at": "createdAt",
+                        "updated_at": "updatedAt"
+
+                    },
+                    "Date_column":[
+                        "createdAt",
+                        "updatedAt"
+                    ],
+                    "table_schema": "CREATE TABLE IF NOT EXISTS `db_name`.`stream_test` ( `_id` VARCHAR(50), `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, `place` VARCHAR(50) NULL, `product_name` VARCHAR(50), `quantity` VARCHAR(50),`createdAt` timestamp  NULL, `updatedAt` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ) ENGINE=InnoDB;"
+                },
+                {
+                    "sub_table_name": "stream_test_propeties",
+                    "col":[
+                        "_id",
+                        "propeties",
+                        "created_at",
+                        "updated_at"
+                    ],
+                    "fields":[
+                        "_id",
+                        "propeties_id",
+                        "name",
+                        "created_at",
+                        "updated_at"
+                    ],  
+                    "mapping": {
+                        "propeties_id" : "o_id",
+                        "created_at": "createdAt",
+                        "updated_at": "updatedAt"
+                    },
+                    "Date_column":[
+                        "createdAt",
+                        "updatedAt"
+                    ],
+                    "table_schema": "CREATE TABLE IF NOT EXISTS  `db_name`.`stream_test_propeties` (\n `_id` VARCHAR(50),\n  `id` INT   PRIMARY KEY AUTO_INCREMENT,\n `o_id` varchar(50),\n `name` varchar(50),\n `createdAt` timestamp  ,\n `updatedAt` timestamp   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB;"
+                }
+            ]
+        }
+    ]
+}
